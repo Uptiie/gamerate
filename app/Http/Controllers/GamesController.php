@@ -44,7 +44,7 @@ class GamesController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $slug
+     * @param  string  $slug
      * @return \Illuminate\Http\Response
      */
     public function show($slug)
@@ -52,7 +52,7 @@ class GamesController extends Controller
         $game = Http::withHeaders(config('services.igdb.headers'))
             ->withBody(
                 "fields name, cover.url, first_release_date, platforms.abbreviation, rating,
-                    slug, involved_companies.company.name, genres.name, aggregated_rating, summary, websites.*, videos.*, screenshots.*, similar_games.cover.url, similar_games.name, similar_games.rating,similar_games.platforms.abbreviation, similar_games.slug;
+                    slug, involved_companies.company.name, genres.name, aggregated_rating, summary, websites.*, videos.*, screenshots.*, similar_games.cover.url, similar_games.name, similar_games.rating, similar_games.platforms.abbreviation, similar_games.slug;
                     where slug=\"{$slug}\";
                 ", "text/plain"
             )->post(config('services.igdb.endpoint'))

@@ -3,10 +3,9 @@
 namespace App\Http\Livewire\Request;
 
 use Carbon\Carbon;
-use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\Http;
 use Livewire\Component;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Http;
 
 class RecentlyReviewed extends Component
 {
@@ -51,9 +50,9 @@ class RecentlyReviewed extends Component
     {
         return collect($games)->map(function ($game) {
             return collect($game)->merge([
-                'coverImageUrl' => Str::replaceFirst('thumb','cover_big', $game['cover']['url']),
-                'rating' => isset($game['rating']) ? round($game['rating']).'%' : null,
-                'platforms' => collect($game['platforms'])->pluck('abbreviation')->filter()->implode(', '),
+                'coverImageUrl' => isset($game['cover']) ? Str::replaceFirst('thumb','cover_big', $game['cover']['url']) : null,
+                'rating' => isset($game['rating']) ? round($game['rating']) : null,
+                'platforms' => isset($game['platforms']) ? collect($game['platforms'])->pluck('abbreviation')->implode(', ') : null,
             ]);
         })->toArray();
     }

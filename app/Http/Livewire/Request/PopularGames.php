@@ -31,7 +31,7 @@ class PopularGames extends Component
                 )->post(config('services.igdb.endpoint'))->json();
         });
 
-//        dump($this->formatForView($popularGamesUnformatted));
+        dd($popularGamesUnformatted);
 
         $this->popularGames = $this->formatForView($popularGamesUnformatted);
     }

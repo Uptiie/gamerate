@@ -1,14 +1,6 @@
 <div class="most-anticipated-container space-y-10 mt-8">
     @forelse($comingSoon as $game)
-        <div class="game flex">
-            <a href="{{ route('games.show', $game['slug']) }}">
-                <img src="{{ $game['coverImageUrl'] }}" alt="game cover" class="w-16 hover:opacity-75 transition ease-in-out duration-150 rounded-sm"/>
-            </a>
-            <div class="ml-4">
-                <a href="#" class="hover:text-gray-300 text-white">{{ $game['name'] }}</a>
-                <div class="text-gray-400 text-sm mt-1">{{ $game['releaseDate'] }}</div>
-            </div>
-        </div>
+        <x-game-card-small :game="$game"/>
         @empty
         @foreach(range(1,3) as $game)
         <div class="game flex">
