@@ -31,14 +31,14 @@ class RecentlyReviewed extends Component
 
         $this->recentlyReviewed = $this->formatForView($recentlyReviewedUnformatted);
 
-        collect($this->recentlyReviewed)->filter(function ($game) {
-            return $game['rating'];
-        })->each(function ($game) {
-            $this->emit('reviewGameWithRatingAdded', [
-                'slug' => 'review_'.$game['slug'],
-                'rating' => $game['rating'] / 100
-            ]);
-        });
+//        collect($this->recentlyReviewed)->filter(function ($game) {
+//            return $game['rating'];
+//        })->each(function ($game) {
+//            $this->emit('reviewGameWithRatingAdded', [
+//                'slug' => 'review_'.$game['slug'],
+//                'rating' => $game['rating'] / 100
+//            ]);
+//        });
     }
 
     public function render()
@@ -50,9 +50,12 @@ class RecentlyReviewed extends Component
     {
         return collect($games)->map(function ($game) {
             return collect($game)->merge([
+                'name' => isset($game['name']) ?? $game['name'],
+                'slug' => isset($game['slug']) ?? $game['slug'],
                 'coverImageUrl' => isset($game['cover']) ? Str::replaceFirst('thumb','cover_big', $game['cover']['url']) : 'could not complete',
                 'rating' => isset($game['rating']) ? round($game['rating']) : 'Could not complete',
-                'platforms' => isset($game['platforms']) ?collect($game['platforms'])->pluck('abbreviation')->implode(', ') : 'could not complete',
+                'platforms' => isset($game['platforms']) ? collect($game['platforms'])->pluck('abbreviation')->implode(', ') : 'could not complete',
+                'summary' => isset($game['summary']) ?? $game['summary'],
             ]);
         })->toArray();
     }
