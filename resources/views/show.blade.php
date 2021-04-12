@@ -25,18 +25,29 @@
 
                 <div class="flex flex-wrap items-center mt-8">
                     <div class="flex items-center mr-8 xl:mt-0 lg:mt-0 md:mt-0 mt-4">
-                        <div class="w-16 h-16 bg-gray-800 rounded-full">
-                            <div class="font-semibold text-white text-xs flex justify-center items-center h-full">
-                                {{ $game['memberRating'] }}
-                            </div>
+                        <div id="memberRating" class="w-16 h-16 bg-gray-800 rounded-full relative text-sm">
+                            @push('scripts')
+                                @include('_rating', [
+                                    'slug' => 'memberRating',
+                                    'rating' => $game['memberRating'],
+                                    'event' => null,
+                                ])
+                            @endpush
+{{--                            <div class="font-semibold text-white text-xs flex justify-center items-center h-full">--}}
+{{--                                {{ $game['memberRating'] }}--}}
+{{--                            </div>--}}
                         </div>
                         <div class="text-gray-400 ml-4 text-xs">Member <br/> Score</div>
                     </div>
                     <div class="flex items-center xl:mt-0 lg:mt-0 md:mt-0 mt-4">
-                        <div class="w-16 h-16 bg-gray-800 rounded-full">
-                            <div class="font-semibold text-white text-xs flex justify-center items-center h-full">
-                                {{ $game['criticRating'] }}
-                            </div>
+                        <div id="criticRating" class="w-16 h-16 bg-gray-800 rounded-full relative text-sm">
+                            @push('scripts')
+                                @include('_rating', [
+                                    'slug' => 'criticRating',
+                                    'rating' => $game['criticRating'],
+                                    'event' => null,
+                                ])
+                            @endpush
                         </div>
                         <div class="text-gray-400 ml-4 text-xs">Critic <br/> Score</div>
                     </div>

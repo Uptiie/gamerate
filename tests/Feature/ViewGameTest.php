@@ -18,6 +18,16 @@ class ViewGameTest extends TestCase
         $response = $this->get(route('games.show', 'animal_crossing-new-horizons'));
 
         $response->assertSuccessful();
+        $response->assertSee('Fake Animal Crossing: New Horizons');
+        $response->assertSee('Simulator');
+        $response->assertSee('Nintendo');
+        $response->assertSee('Switch');
+        $response->assertSee('86');
+        $response->assertSee('90');
+        $response->assertSee('twitter.com/animalcrossing');
+        $response->assertSee('Escape to a deserted island');
+        $response->assertSee('images.igdb.com/igdb/image/upload/t_screenshot_big/sc6lt7.jpg');
+        $response->assertSee('The Last Journey');
     }
 
     public function fakeSingleGame()

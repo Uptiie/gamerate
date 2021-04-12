@@ -31,7 +31,12 @@ class PopularGames extends Component
                 )->post(config('services.igdb.endpoint'))->json();
         });
 
-        dd($popularGamesUnformatted);
+//        dump($this->formatForView($popularGamesUnformatted));
+         collect($this->popularGames)->filter(function ($game) {
+             return $game['rating'];
+         })->each(function ($game) {
+             $this->emit('gameWithRatingAdded');
+         });
 
         $this->popularGames = $this->formatForView($popularGamesUnformatted);
     }
@@ -46,7 +51,7 @@ class PopularGames extends Component
         return collect($games)->map(function ($game) {
             return collect($game)->merge([
                 'coverImageUrl' => Str::replaceFirst('thumb', 'cover_big', $game['cover']['url']),
-                'rating' => isset($game['rating']) ? round($game['rating']).'%' : null,
+                'rating' => isset($game['rating']) ? round($game['rating']) : null,
                 'platforms' => collect($game['platforms'])->pluck('abbreviation')->implode(', '),
             ]);
         })->toArray();

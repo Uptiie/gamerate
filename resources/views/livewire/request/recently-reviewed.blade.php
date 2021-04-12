@@ -37,3 +37,9 @@
         @endforeach
     @endforelse
 </div>
+
+@push('scripts')
+    @include('_rating', [
+    'event' => 'reviewGameWithRatingAdded'
+])
+@endpush

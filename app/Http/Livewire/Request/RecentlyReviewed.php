@@ -31,14 +31,14 @@ class RecentlyReviewed extends Component
 
         $this->recentlyReviewed = $this->formatForView($recentlyReviewedUnformatted);
 
-//        collect($this->recentlyReviewed)->filter(function ($game) {
-//            return $game['rating'];
-//        })->each(function ($game) {
-//            $this->emit('reviewGameWithRatingAdded', [
-//                'slug' => 'review_'.$game['slug'],
-//                'rating' => $game['rating'] / 100
-//            ]);
-//        });
+        collect($this->recentlyReviewed)->filter(function ($game) {
+            return $game['rating'];
+        })->each(function ($game) {
+            $this->emit('reviewGameWithRatingAdded', [
+                'slug' => 'review_'.$game['slug'],
+                'rating' => $game['rating'] / 100
+            ]);
+        });
     }
 
     public function render()
