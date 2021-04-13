@@ -12,18 +12,18 @@ class SearchDropdown extends Component
 
     public function render()
     {
-        $this->searchResults = Cache::remember('popular-games', 7, function () use ($before, $after) {
+        if (count($this->search) >= 2)
+        $this->searchResults =
 //            sleep(3);
             Http::withHeaders(config('services.igdb.headers'))
                 ->withBody(
                 "
                 search \"{$this->search}\";
                 fields name, game.cover.url, game.slug;
-                limit 6;
+                limit 8;
                 ",
                 "text/plain"
                 )->get(config('services.igdb.endpoint'))->json();
-        });
         return view('livewire.search-dropdown');
     }
 }
