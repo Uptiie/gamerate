@@ -23,7 +23,7 @@ use App\Http\Controllers\GamesController;
 */
 
 Route::get('/', [GamesController::class, 'index'])->name('games.index');
-Route::get('/games/{slugUrl}', [GamesController::class, 'show'])->name('games.show');
+Route::get('/games/{slug}', [GamesController::class, 'show'])->name('games.show');
 
 Route::middleware('guest')->group(function () {
     Route::get('login', Login::class)

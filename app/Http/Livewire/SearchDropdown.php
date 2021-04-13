@@ -12,7 +12,7 @@ class SearchDropdown extends Component
 
     public function render()
     {
-        if (count($this->search) >= 2)
+        if (strlen($this->search) >= 2)
         $this->searchResults =
 //            sleep(3);
             Http::withHeaders(config('services.igdb.headers'))

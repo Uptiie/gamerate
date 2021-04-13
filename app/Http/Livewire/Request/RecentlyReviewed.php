@@ -50,12 +50,9 @@ class RecentlyReviewed extends Component
     {
         return collect($games)->map(function ($game) {
             return collect($game)->merge([
-                'name' => isset($game['name']) ?? $game['name'],
-                'slug' => isset($game['slug']) ?? $game['slug'],
-                'coverImageUrl' => isset($game['cover']) ? Str::replaceFirst('thumb','cover_big', $game['cover']['url']) : 'could not complete',
-                'rating' => isset($game['rating']) ? round($game['rating']) : 'Could not complete',
-                'platforms' => isset($game['platforms']) ? collect($game['platforms'])->pluck('abbreviation')->implode(', ') : 'could not complete',
-                'summary' => isset($game['summary']) ?? $game['summary'],
+                'coverImageUrl' => isset($game['cover']) ? Str::replaceFirst('thumb','cover_big', $game['cover']['url']) : 'https://via.placeholder.com/264x352',
+                'rating' => isset($game['rating']) ? round($game['rating']) : null,
+                'platforms' => isset($game['platforms']) ? collect($game['platforms'])->pluck('abbreviation')->implode(', ') : null,
             ]);
         })->toArray();
     }

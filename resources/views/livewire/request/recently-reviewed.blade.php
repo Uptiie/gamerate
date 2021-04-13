@@ -40,6 +40,6 @@
 
 @push('scripts')
     @include('_rating', [
-    'event' => 'reviewGameWithRatingAdded'
-])
+        'event' => 'reviewGameWithRatingAdded'
+    ])
 @endpush

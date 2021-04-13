@@ -60,7 +60,7 @@ class GamesController extends Controller
 
         abort_if(!$game, 404);
 
-        return view('show', [
+        return response('show', [
             'game' => $this->formatGameForView($game[0]),
         ]);
     }
@@ -74,7 +74,7 @@ class GamesController extends Controller
             'platforms' => collect($game['platforms'])->pluck('abbreviation')->filter()->implode(', '),
             'memberRating' => array_key_exists('rating', $game) ? round($game['rating']) : '0',
             'criticRating' => array_key_exists('aggregated_rating', $game) ? round($game['aggregated_rating']) : '0',
-            'trailer' => 'https://youtube.com/watch/'.$game['videos'][0],
+            'trailer' => 'https://youtube.com/embed/'.$game['videos'][0]['video_id'],
             'screenshots' => collect($game['screenshots'])->map(function ($screenshot) {
                 return [
                     'big' => Str::replaceFirst('thumb', 'screenshot_big', $screenshot['url']),

@@ -3,7 +3,14 @@
         wire:model.debounce.200ms="search"
         type="text"
         class="w-64 bg-gray-600 border-gray-600 text-gray-300 text-sm rounded-full px-3 pl-8 py-1 placeholder-gray-400"
-        placeholder="Search for games..."
+        placeholder="Search for games (Press '/' to focus)"
+        x-ref="search"
+        @keydown.window="
+            if(event.keyCode === 191) {
+                event.preventDefault();
+                $refs.search.focus();
+            }
+        "
         @focus="isVisible = true"
         @keydown.escape.window = "isVisible = false"
         @keydown="isVisible = true"
@@ -17,8 +24,8 @@
 
     <div wire:loading class="spinner top-0 right-0 mr-4 mt-2" style="position: absolute"></div>
 
-    @if (count($search) >= 2 )
-    <div class="absolute z-50 bg-gray-800 text-sm rounded w-64 mt-2" x-show="isVisible">
+    @if (strlen($search) >= 2 )
+    <div class="absolute z-50 bg-gray-800 text-sm rounded w-64 mt-2" x-show.transition.opacity.duration.200="isVisible">
         @if (count($searchResults) > 0)
         <ul>
             @foreach($searchResults as $game)
